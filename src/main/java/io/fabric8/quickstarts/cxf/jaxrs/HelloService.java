@@ -33,8 +33,8 @@ public interface HelloService {
     String welcome();
     
     @GET
-    @Path("/{a}")
+    @Path("/{name}")
     @Produces(MediaType.TEXT_PLAIN)
-    String sayHello(@PathParam("a") String a);
+    String sayHello(@PathParam("name") String name);
 
 }

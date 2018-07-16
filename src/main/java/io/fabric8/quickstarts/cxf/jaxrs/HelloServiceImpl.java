@@ -16,18 +16,28 @@
 package io.fabric8.quickstarts.cxf.jaxrs;
 
 import io.swagger.annotations.Api;
+import org.apache.camel.ProducerTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Api("/sayHello")
 @Component
 public class HelloServiceImpl implements HelloService {
 
+
+    @Autowired
+    ProducerTemplate producerTemplate;
+
+
     public String welcome() {
         return "Welcome to the CXF RS Spring Boot application, append /{name} to call the hello service";
     }
 
-    public String sayHello(String a) {
-        return "Hello " + a + ", Welcome to CXF RS Spring Boot World!!!";
+    public String sayHello(String name) {
+
+        return (String) producerTemplate.requestBody("direct:sayHelloRoute", name);
+
+//        return "Hello " + a + ", Welcome to CXF RS Spring Boot World!!!";
     }
     
 }
